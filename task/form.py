@@ -5,10 +5,9 @@ from datetime import date
 class TaskForm(forms.ModelForm):
     class Meta():
         model = Task
-        exclude = ['created_at','user']
+        exclude = ['created_at','user','completed']
         widgets = {
-            'end_at': forms.DateInput(attrs={'type':'date'}),
-            'done_it':forms.CheckboxInput(attrs={'type':'checkbox'})
+            'end_at': forms.DateInput(attrs={'type':'date'}), 
         }
 
     def clean_end_at(self):

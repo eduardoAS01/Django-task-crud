@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect,get_object_or_404
 from django.views.generic.edit import CreateView
 from django.views.generic import ListView,UpdateView,DeleteView
 from django.urls import reverse_lazy
@@ -25,7 +25,7 @@ class ListTask(ListView):
     
 class UpdateTask(UpdateView):
     model = Task
-    fields = ['title','text','end_at','done_it']
+    fields = ['title','text','end_at','completed']
     template_name = 'task/update.html'
     success_url = reverse_lazy('landing')
 
@@ -33,3 +33,31 @@ class DeleteTask(DeleteView):
     model = Task
     template_name = 'task/delete.html' 
     success_url = reverse_lazy('landing')   
+
+
+class ListTaskComplete(ListView):
+    model = Task
+    context_object_name = 'tasks'
+    template_name = 'task/list_task_complete.html'
+    
+    def get_queryset(self):
+        return Task.objects.filter(user = self.request.user,completed = True)
+
+
+class ListTaskNotComplete(ListView):
+    model = Task
+    context_object_name = 'tasks'
+    template_name = 'task/list_task_no_complete.html'
+    
+    def get_queryset(self):
+        return Task.objects.filter(user = self.request.user,completed = False)
+
+def complete_task(request,pk):
+     task = get_object_or_404(Task,id=pk)
+     task.completed = not task.completed
+     task.save()
+     return redirect('list_task')
+
+
+
+

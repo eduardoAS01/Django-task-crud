@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Lista de tareas</h1>
+    <h1>Lista de tareas sin completar</h1>
     <ul>
         {% for task in tasks %}
             <form method="post" action="{% url 'complete_task' task.pk %}">
@@ -16,10 +16,8 @@
                 <a href="{% url 'delete_task' task.pk %}">Eliminar</a>
             </form>
         {% empty %}
-            <li>No tienes tareas</li>
+            <li>No tienes tareas sin completar</li>
         {% endfor %}
     </ul>
-    <a href="{% url 'list_task_completed' %}">Lista de tareas completadas</a>
-    <a href="{% url 'list_task_not_completed' %}">Lista de tareas no completadas</a>
 </body>
 </html>

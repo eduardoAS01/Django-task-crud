@@ -9,7 +9,7 @@ class Task(models.Model):
     created_at = models.DateField(auto_now_add=True)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     end_at = models.DateField(blank=True,null=True)
-    done_it = models.BooleanField(default=False)
+    completed = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
