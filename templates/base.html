@@ -13,6 +13,7 @@
                     {% csrf_token %}
                     <button type="submit">Cerrar sesion</button>
                 </form></li>
+                <a href="{% url 'list_task' %}">Tareas</a>
             {% else %}
                 <li><a href="{% url 'register' %}">Registrarse</a></li>
                 <li><a href="{% url 'signin' %}">Iniciar sesion</a></li>

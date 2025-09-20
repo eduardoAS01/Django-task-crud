@@ -7,19 +7,21 @@
 </head>
 <body>
     <h1>Lista de tareas</h1>
+    <a href="{% url 'create_task' %}">Add new task</a>
     <ul>
         {% for task in tasks %}
             <form method="post" action="{% url 'complete_task' task.pk %}">
                 {% csrf_token %}
-                <input type="checkbox" name="complete" onchange="this.form.submit()"{% if task.completed %}checked{% endif %}>-<li>{{task.title}}</li>
-                <a href="{% url 'update_task' task.pk %}">Editar</a>
-                <a href="{% url 'delete_task' task.pk %}">Eliminar</a>
+                <input type="checkbox" name="complete" onchange="this.form.submit()"{% if task.is_completed %}checked{% endif %}>-<li>{{task.title}}</li>
+                <a href="{% url 'update_task' task.pk %}">Edit</a>
+                <a href="{% url 'delete_task' task.pk %}">Delete</a>
             </form>
         {% empty %}
-            <li>No tienes tareas</li>
+            <li>No task</li>
         {% endfor %}
     </ul>
-    <a href="{% url 'list_task_completed' %}">Lista de tareas completadas</a>
-    <a href="{% url 'list_task_not_completed' %}">Lista de tareas no completadas</a>
+    <a href="{% url 'list_task' %}?status=completed">Lista de tareas completadas</a><br>
+    <a href="{% url 'list_task' %}?status=not-completed">Lista de tareas no completadas</a><br> 
+    <a href="{% url 'list_task' %}?order_by=due_date">Lista de tareas por fecha mas cercana</a>
 </body>
 </html>

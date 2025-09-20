@@ -5,17 +5,17 @@ from datetime import date
 class TaskForm(forms.ModelForm):
     class Meta():
         model = Task
-        exclude = ['created_at','user','completed']
+        exclude = ['created_at','user','is_completed']
         widgets = {
-            'end_at': forms.DateInput(attrs={'type':'date'}), 
+            'due_date': forms.DateInput(attrs={'type':'date'}), 
         }
 
-    def clean_end_at(self):
-        end_at = self.cleaned_data.get('end_at')
+    def clean_due_date(self):
+        due_date = self.cleaned_data.get('due_date')
 
-        if end_at and end_at <= date.today():
-            raise forms.ValidationError('No puedes crear una tarea en el pasado')
+        if due_date and due_date <= date.today():
+            raise forms.ValidationError('You cant set a due date in the past')
         
-        return end_at
+        return due_date
  
    
