@@ -35,8 +35,6 @@ Create a virtual enviroment and install all dependencies
 
 ```bash
 pip install -r requirements.txt
-python manage.py migrate
-python manage.py runserver
 ```
 Run migrations and start the development server
 
